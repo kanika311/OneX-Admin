@@ -26,12 +26,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         {/* <p className="font-serif text-lg text-ink">1X CRM</p> */}
 
         <Image
-    src="/Logo.jpeg"
-    alt="Dr. Ayxh"
-    width={40}
-    height={40}
-    className="h-12 w-12 rounded-full object-cover border border-rose-100"
-  />
+          src="/LOGO.jpeg"
+          alt="Dr. Ayxh"
+          width={48}
+          height={48}
+          className="h-12 w-12 rounded-full object-cover border border-rose-100"
+          priority
+        />
         <p className="text-xs text-muted">Dr. Ayxh Admin</p>
         <nav className="mt-8 flex flex-1 flex-col gap-1">
           {NAV.map(({ href, label }) => (
