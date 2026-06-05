@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2a2438;
+  --color-muted: #6b6578;
+  --color-cream: #faf7f5;
+  --color-mauve: #9b7b9e;
+  --color-mauve-deep: #6d4a6f;
+  --color-rose-50: #fdf5f6;
+  --color-rose-100: #f8e8ec;
+  --color-rose-200: #efd4dc;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+}
