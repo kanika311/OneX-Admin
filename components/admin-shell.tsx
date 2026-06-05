@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { adminLogout, getStoredAdmin } from "@/lib/auth";
-import Image from "next/image";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard" },
@@ -23,15 +22,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh">
       <aside className="flex w-56 shrink-0 flex-col border-r border-rose-100 bg-white px-4 py-6">
-        {/* <p className="font-serif text-lg text-ink">1X CRM</p> */}
-
-        <Image
+       
+        <img
           src="/LOGO.jpeg"
           alt="Dr. Ayxh"
           width={48}
           height={48}
           className="h-12 w-12 rounded-full object-cover border border-rose-100"
-          priority
         />
         <p className="text-xs text-muted">Dr. Ayxh Admin</p>
         <nav className="mt-8 flex flex-1 flex-col gap-1">
