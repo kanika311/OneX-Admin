@@ -131,6 +131,21 @@ export type Order = {
   updatedAt: string;
 };
 
+export type Testimonial = {
+  _id: string;
+  fullName: string;
+  email: string;
+  photo: string;
+  serviceUsed: string;
+  rating: number;
+  message: string;
+  serviceDate: string;
+  status: "pending" | "approved" | "rejected";
+  featured: boolean;
+  createdAt: string;
+  updatedAt?: string;
+};
+
 export type Offer = {
   _id: string;
   slug: string;
