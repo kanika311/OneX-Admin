@@ -11,6 +11,7 @@ const NAV = [
   { href: "/dashboard/products", label: "Services & Courses" },
   { href: "/dashboard/offers", label: "Gift cards" },
   { href: "/dashboard/site-content", label: "Contact & Legal" },
+  { href: "/dashboard/contact-inquiries", label: "Contact messages" },
   { href: "/dashboard/testimonials", label: "Testimonials" },
   { href: "/dashboard/customers", label: "Customers" },
   { href: "/dashboard/orders", label: "Orders" },
