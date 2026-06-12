@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { useEffect, useMemo, useState } from "react";
 import * as Yup from "yup";
 
+import { ImageUploadField } from "@/components/image-upload-field";
 import { apiFetch } from "@/lib/api";
 
 type LegalSection = { heading: string; body: string };
@@ -25,10 +26,17 @@ type About = {
   visionText: string;
 };
 
+type Payment = {
+  upiId: string;
+  upiPayeeName: string;
+  qrImage: string;
+};
+
 type SiteContent = {
   key: string;
   about: About;
   contact: Contact;
+  payment?: Payment;
   privacy: LegalDoc;
   terms: LegalDoc;
 };
@@ -82,6 +90,7 @@ export default function SiteContentPage() {
   const initValues = useMemo(() => {
     const about = initial?.about ?? ({} as Partial<About>);
     const contact = initial?.contact ?? ({} as Partial<Contact>);
+    const payment = initial?.payment ?? ({} as Partial<Payment>);
     const privacy = initial?.privacy ?? ({} as Partial<LegalDoc>);
     const terms = initial?.terms ?? ({} as Partial<LegalDoc>);
     return {
@@ -106,6 +115,9 @@ export default function SiteContentPage() {
       contactLinkedIn:
         contact.linkedin ??
         "https://www.linkedin.com/in/dr-ayxh-baby-%E0%A4%90%E0%A4%B6%E0%A5%8D-abram-aymed-5b388b22b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+      paymentUpiId: payment.upiId ?? "ayeshaaahmedsinghrockzzz@okhdfcbank",
+      paymentPayeeName: payment.upiPayeeName ?? "Dr. Ayxh Abram",
+      paymentQrImage: payment.qrImage ?? "",
       privacyTitle: privacy.title ?? "Privacy Policy",
       privacyIntro:
         privacy.intro ??
@@ -132,7 +144,7 @@ export default function SiteContentPage() {
     <div className="max-w-4xl">
       <h1 className="font-serif text-3xl text-ink">Site content</h1>
       <p className="mt-2 text-sm text-muted">
-        Edit the About homepage, Contact page, footer email, Privacy Policy, and Terms.
+        Edit About, Contact, UPI payment QR, Privacy Policy, and Terms.
       </p>
 
       <Formik
@@ -159,6 +171,11 @@ export default function SiteContentPage() {
                 whatsapp: values.contactWhatsApp.trim(),
                 linkedin: values.contactLinkedIn.trim(),
               },
+              payment: {
+                upiId: values.paymentUpiId.trim(),
+                upiPayeeName: values.paymentPayeeName.trim(),
+                qrImage: values.paymentQrImage.trim(),
+              },
               privacy: {
                 title: values.privacyTitle.trim(),
                 intro: values.privacyIntro.trim(),
@@ -180,7 +197,7 @@ export default function SiteContentPage() {
           }
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
           <form onSubmit={handleSubmit} className="mt-10 space-y-10">
             <section className="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
               <h2 className="font-serif text-xl text-ink">About (homepage)</h2>
@@ -323,6 +340,43 @@ export default function SiteContentPage() {
                     onBlur={handleBlur}
                   />
                 </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+              <h2 className="font-serif text-xl text-ink">UPI payment QR</h2>
+              <p className="mt-1 text-xs text-muted">
+                Shown at checkout when customers pay. Upload a QR image from your UPI app, or leave it empty to
+                auto-generate a QR from the UPI ID below.
+              </p>
+              <div className="mt-4 space-y-4">
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">UPI ID (VPA)</label>
+                  <input
+                    name="paymentUpiId"
+                    className={inputClass}
+                    value={values.paymentUpiId}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="name@okhdfcbank"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">Payee name</label>
+                  <input
+                    name="paymentPayeeName"
+                    className={inputClass}
+                    value={values.paymentPayeeName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Dr. Ayxh Abram"
+                  />
+                </div>
+                <ImageUploadField
+                  label="Payment QR image (optional)"
+                  value={values.paymentQrImage}
+                  onChange={(url) => void setFieldValue("paymentQrImage", url)}
+                />
               </div>
             </section>
 
