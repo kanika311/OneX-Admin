@@ -125,6 +125,7 @@ export type Order = {
   status: "pending" | "confirmed" | "cancelled";
   paymentStatus?: "awaiting" | "submitted" | "confirmed";
   paymentSubmittedAt?: string | null;
+  paymentReference?: string;
   notes: string;
   itemCount: number;
   createdAt: string;

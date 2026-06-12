@@ -86,6 +86,11 @@ export default function OrderDetailPage() {
                 ? "Payment confirmed"
                 : "Awaiting UPI payment"}
           </p>
+          {order.paymentReference ? (
+            <p className="mt-2 text-sm">
+              UPI ref: <span className="font-mono font-medium text-ink">{order.paymentReference}</span>
+            </p>
+          ) : null}
           {order.paymentSubmittedAt ? (
             <p className="mt-1 text-xs text-muted">
               Submitted {new Date(order.paymentSubmittedAt).toLocaleString()}

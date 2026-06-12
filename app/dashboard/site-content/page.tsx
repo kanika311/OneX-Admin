@@ -18,8 +18,16 @@ type Contact = {
   linkedin: string;
 };
 
+type About = {
+  storyParagraph1: string;
+  storyParagraph2: string;
+  visionTitle: string;
+  visionText: string;
+};
+
 type SiteContent = {
   key: string;
+  about: About;
   contact: Contact;
   privacy: LegalDoc;
   terms: LegalDoc;
@@ -72,10 +80,21 @@ export default function SiteContentPage() {
   }, []);
 
   const initValues = useMemo(() => {
+    const about = initial?.about ?? ({} as Partial<About>);
     const contact = initial?.contact ?? ({} as Partial<Contact>);
     const privacy = initial?.privacy ?? ({} as Partial<LegalDoc>);
     const terms = initial?.terms ?? ({} as Partial<LegalDoc>);
     return {
+      aboutStory1:
+        about.storyParagraph1 ??
+        "Dr. Ayxh founded 1X to unite two worlds: luxury physiotherapy that restores movement and confidence, and rigorous cybersecurity that opens doors in a high-demand industry. Every service we provide reflects the same standard — premium, personal, and outcome-driven.",
+      aboutStory2:
+        about.storyParagraph2 ??
+        "Alignment in the body, encryption in the code. Balance is everything.\nFixing your posture and your passwords. You need both — that's why you have 1X by Dr. Ayxh.",
+      aboutVisionTitle: about.visionTitle ?? "Vision",
+      aboutVisionText:
+        about.visionText ??
+        "A world where wellness and digital literacy are equally accessible, delivered with the care of a luxury brand and the rigor of experts.",
       contactHeadline: contact.headline ?? "Get in touch",
       contactSubheadline: contact.subheadline ?? "Book a 1-on-1 consult/collab with Dr. Ayxh.",
       contactAddress:
@@ -103,7 +122,7 @@ export default function SiteContentPage() {
   if (loading) {
     return (
       <div>
-        <h1 className="font-serif text-3xl text-ink">Contact & Legal</h1>
+        <h1 className="font-serif text-3xl text-ink">Site content</h1>
         <p className="mt-3 text-sm text-muted">Loading…</p>
       </div>
     );
@@ -111,9 +130,9 @@ export default function SiteContentPage() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="font-serif text-3xl text-ink">Contact & Legal</h1>
+      <h1 className="font-serif text-3xl text-ink">Site content</h1>
       <p className="mt-2 text-sm text-muted">
-        Edit your Contact page, Privacy Policy, and Terms. Changes reflect immediately on the public site.
+        Edit the About homepage, Contact page, footer email, Privacy Policy, and Terms.
       </p>
 
       <Formik
@@ -125,6 +144,12 @@ export default function SiteContentPage() {
           setMessage("");
           try {
             const payload = {
+              about: {
+                storyParagraph1: values.aboutStory1.trim(),
+                storyParagraph2: values.aboutStory2.trim(),
+                visionTitle: values.aboutVisionTitle.trim(),
+                visionText: values.aboutVisionText.trim(),
+              },
               contact: {
                 headline: values.contactHeadline.trim(),
                 subheadline: values.contactSubheadline.trim(),
@@ -158,7 +183,64 @@ export default function SiteContentPage() {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
           <form onSubmit={handleSubmit} className="mt-10 space-y-10">
             <section className="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
-              <h2 className="font-serif text-xl text-ink">Contact</h2>
+              <h2 className="font-serif text-xl text-ink">About (homepage)</h2>
+              <p className="mt-1 text-xs text-muted">
+                Story and vision on the public homepage / About section.
+              </p>
+              <div className="mt-4 space-y-4">
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">Story — paragraph 1</label>
+                  <textarea
+                    rows={4}
+                    name="aboutStory1"
+                    className={inputClass}
+                    value={values.aboutStory1}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">
+                    Story — paragraph 2 (use new lines for line breaks)
+                  </label>
+                  <textarea
+                    rows={4}
+                    name="aboutStory2"
+                    className={inputClass}
+                    value={values.aboutStory2}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">Vision title</label>
+                  <input
+                    name="aboutVisionTitle"
+                    className={inputClass}
+                    value={values.aboutVisionTitle}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-muted">Vision text</label>
+                  <textarea
+                    rows={3}
+                    name="aboutVisionText"
+                    className={inputClass}
+                    value={values.aboutVisionText}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+              <h2 className="font-serif text-xl text-ink">Contact & footer</h2>
+              <p className="mt-1 text-xs text-muted">
+                Email also appears in the site footer and on this admin Contact messages page.
+              </p>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <label className="text-xs font-semibold uppercase text-muted">Headline</label>
