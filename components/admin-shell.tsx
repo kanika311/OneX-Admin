@@ -13,6 +13,7 @@ const NAV = [
   { href: "/dashboard/site-content", label: "Site content" },
   { href: "/dashboard/contact-inquiries", label: "Contact messages" },
   { href: "/dashboard/newsletter", label: "footer-signup" },
+  { href: "/dashboard/cookie-consents", label: "Cookies" },
   { href: "/dashboard/testimonials", label: "Testimonials" },
   { href: "/dashboard/customers", label: "Customers" },
   { href: "/dashboard/orders", label: "Orders" },
